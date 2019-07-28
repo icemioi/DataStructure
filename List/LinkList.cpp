@@ -38,6 +38,7 @@ LinkList::~LinkList() {
 		htem = htem->next;
 		delete tem;
 	}
+	delete this->head;
 }
 
 bool LinkList::ListisEmpty() {

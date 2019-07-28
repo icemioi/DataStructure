@@ -29,6 +29,7 @@ LinkStack::~LinkStack(){
 		this->head = this->head->next;
 		delete tem;
 	}
+	delete this->head;
 	std::cout<<"stack has deleted\n";
 }
 bool LinkStack::StackIsEmpty(){
