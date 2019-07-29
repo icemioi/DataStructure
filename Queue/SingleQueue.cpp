@@ -1,10 +1,10 @@
 #include "iostream"
 #define MaxSize 50
 
-class SequenceQueue{
+class SingleQueue{
 	public:
-		SequenceQueue();
-		~SequenceQueue();
+		SingleQueue();
+		~SingleQueue();
 		bool QueueIsEmpty();
 		bool EnQueue(int e);
 		bool DeQueue(int &e);
@@ -16,52 +16,50 @@ class SequenceQueue{
 		int front,rear;
 };
 
-SequenceQueue::SequenceQueue(){ 
+SingleQueue::SingleQueue(){ 
 	this->front = 0;
 	this->rear = 0;
 	std::cout<<"Queue has created\n";
 }
-SequenceQueue::~SequenceQueue(){
+SingleQueue::~SingleQueue(){
 	this->front = 0;
 	this->rear = 0;
 	std::cout<<"Queue has deleted\n";
 }
-bool SequenceQueue::QueueIsEmpty(){
-	if(this->front == 0 && this->rear == 0){
+bool SingleQueue::QueueIsEmpty(){
+	if(this->front == this->rear ){
 		return true;
 	}else{
 		return false;
 	}
 }
-bool SequenceQueue::EnQueue(int e){
-	if(this->front == 0 && this->rear == 0){
-		this->data[this->rear] = e;
-		this->rear++;
-		return true;
+bool SingleQueue::EnQueue(int e){
+	if( (this->rear+1)%MaxSize == this->front){
+		return false;
 	}
 	this->data[this->rear] = e;
-	this->rear++;
+	this->rear = (this->rear+1)%MaxSize;
 	return true;
 }
-bool SequenceQueue::DeQueue(int &e){
-	if(this->front == 0 && this->rear == 0){
+bool SingleQueue::DeQueue(int &e){
+	if(this->front == this->rear){
 		e = -1;
 		return false;
 	}
 	e =  this->data[this->front] ;
-	this->front++;
+	this->front= (this->front+1)%MaxSize;
 	return true;
 }
-bool SequenceQueue::GetHead(int &e){
-	if(this->front == 0 && this->rear == 0){
+bool SingleQueue::GetHead(int &e){
+	if(this->front ==  this->rear ){
 		e = -1;
 		return false;
 	}
 	e =  this->data[this->front] ;
 	return true;
 }
-void SequenceQueue::Show(){
-	if(this->front == this->rear ){
+void SingleQueue::Show(){
+	if(this->front ==  this->rear ){
 		return ;
 	}
 	int ftem = this->front;
@@ -73,7 +71,7 @@ void SequenceQueue::Show(){
 }
 
 void test(){
-	SequenceQueue squeue ;
+	SingleQueue squeue ;
 	int e = 0;
 	if(squeue.QueueIsEmpty()){
 		std::cout<<"empty\n";
