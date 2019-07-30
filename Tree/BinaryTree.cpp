@@ -15,6 +15,7 @@ class BinaryTree {
 		bool BinaryTreeIsEmpty();
 		void PreTravel(Node *node);
 		void MidTravel(Node *node);
+		void PostTravel(Node *node);
 	private:
 		Node *root;
 
@@ -103,6 +104,17 @@ void BinaryTree::MidTravel(Node *node){
 	}
 }
 
+void BinaryTree::PostTravel(Node *node){
+	
+	if(node == NULL){
+		return;
+	}else{
+		this->MidTravel(node->lchild);
+		this->MidTravel(node->rchild);
+		std::cout<<node->data<<"->";
+	}
+}
+
 
 void test() {
 	BinaryTree binaryTree;
@@ -114,6 +126,8 @@ void test() {
 	binaryTree.PreTravel(binaryTree.GetRoot());
 	std::cout<<"\n MidTravel:\n";
 	binaryTree.MidTravel(binaryTree.GetRoot());
+	std::cout<<"\n PostTravel:\n";
+	binaryTree.PostTravel(binaryTree.GetRoot());
 	std::cout<<"\n";
 }
 
