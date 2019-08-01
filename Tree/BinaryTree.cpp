@@ -23,6 +23,7 @@ class BinaryTree {
 
 		void StackPreTravel(Node *node);
 		void StackMidTravel(Node *node);
+		void StackPostTravel(Node *node);
 	private:
 		Node *root;
 
@@ -166,6 +167,33 @@ void BinaryTree::PostTravel(Node *node) {
 	}
 }
 
+void BinaryTree::StackPostTravel(Node *node){
+	if(node == NULL){
+		return ;
+	}
+	Node *tem = node;
+	stack<Node*> stem;
+	stack<Node*> st;
+	while(tem || !stem.empty()){
+		while(tem){
+			stem.push(tem);
+			st.push(tem);
+			tem = tem->rchild;
+		}
+		if(!stem.empty()){
+			tem = stem.top();
+			stem.pop();
+			tem = tem->lchild;
+		}
+	
+	}
+	while(!st.empty()){
+		tem = st.top();
+		st.pop();
+		cout<<tem->data<<"->";
+	}
+}
+
 void BinaryTree::LevelTravel(Node *node) {
 	if(node == NULL) {
 		return ;
@@ -192,17 +220,19 @@ void test() {
 	binaryTree.BinaryTreeInsert(1);
 	binaryTree.BinaryTreeInsert(6);
 	binaryTree.BinaryTreeInsert(3);
-	std::cout<<"\n PreTravel:\n";
+	std::cout<<"\n1. PreTravel:\n";
 	binaryTree.PreTravel(binaryTree.GetRoot());
 	std::cout<<"\n StackPreTravel:\n";
 	binaryTree.StackPreTravel(binaryTree.GetRoot());
-	std::cout<<"\n MidTravel:\n";
+	std::cout<<"\n2. MidTravel:\n";
 	binaryTree.MidTravel(binaryTree.GetRoot());
 	std::cout<<"\n StackMidTravel:\n";
 	binaryTree.StackMidTravel(binaryTree.GetRoot());
-	std::cout<<"\n PostTravel:\n";
+	std::cout<<"\n3. PostTravel:\n";
 	binaryTree.PostTravel(binaryTree.GetRoot());
-	std::cout<<"\n LeveLTravel:\n";
+	std::cout<<"\n StackPostTravel:\n";
+	binaryTree.StackPostTravel(binaryTree.GetRoot());
+	std::cout<<"\n4. LeveLTravel:\n";
 	binaryTree.LevelTravel(binaryTree.GetRoot());
 	std::cout<<"\n";
 }
